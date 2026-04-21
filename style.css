@@ -1,0 +1,345 @@
+/* ─── Reset ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Variables — mobile base ─── */
+:root {
+  --bg:        #f0ede8;
+  --env-body:  #8ea4b5;
+  --env-flap:  #7d95a8;
+  --env-sides: #7d95a8;
+  --env-bot:   #6b8498;
+  --paper:     #faf8f5;
+  --ink:       #3a4f5c;
+  --ink-soft:  #6b8498;
+  --gold:      #c9a84c;
+
+  --env-w:   280px;
+  --env-h:   190px;
+  --letter-rise: -220px;
+}
+
+/* ─── Body ─── */
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Serif Georgian', 'Cormorant Garamond', serif;
+}
+
+/* ─── Scene ─── */
+#scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: scene-enter 0.9s ease both;
+  animation-delay: 0.2s;
+}
+
+@keyframes scene-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Envelope ─── */
+#envelope {
+  position: relative;
+  width: var(--env-w);
+  height: var(--env-h);
+  background: var(--env-body);
+  cursor: pointer;
+  perspective: 1000px;
+  overflow: visible;
+  border-radius: 2px;
+  box-shadow: 0 6px 32px rgba(60, 80, 100, 0.20);
+  transition: opacity 0.9s ease, box-shadow 0.3s ease;
+}
+
+#envelope:hover {
+  box-shadow: 0 10px 42px rgba(60, 80, 100, 0.28);
+}
+
+#envelope.open-overflow {
+  overflow: visible;
+}
+
+#envelope.fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Flap — full-area div, clip to top triangle, rotates open from top edge ─── */
+.env-flap {
+  position: absolute;
+  inset: 0;
+  background: var(--env-flap);
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  transform-origin: top center;
+  z-index: 4;
+  transition: transform 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.env-flap.open {
+  transform: rotateX(-180deg);
+}
+
+.env-flap.behind {
+  z-index: 2;
+}
+
+/* ─── Wax seal ─── */
+.env-seal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+#envelope.fading .env-seal {
+  opacity: 0;
+}
+
+/* ─── Side triangles — full-area divs, each clipped to their triangle ─── */
+.env-left {
+  position: absolute;
+  inset: 0;
+  background: var(--env-sides);
+  clip-path: polygon(0 0, 0 100%, 50% 50%);
+  z-index: 4;
+}
+
+.env-right {
+  position: absolute;
+  inset: 0;
+  background: var(--env-sides);
+  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+  z-index: 4;
+}
+
+/* ─── Bottom triangle — full-area div, clipped to bottom triangle ─── */
+.env-bottom {
+  position: absolute;
+  inset: 0;
+  background: var(--env-bot);
+  clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+  z-index: 4;
+}
+
+/* ─── Letter / Paper ─── */
+#letter {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 90%;
+  height: 82%;
+  background: var(--paper);
+  transform: translateX(-50%);
+  z-index: 3;
+  border-radius: 1px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.10);
+  transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#letter.rising {
+  transform: translateX(-50%) translateY(var(--letter-rise));
+}
+
+/* ─── Letter content ─── */
+.letter-body {
+  text-align: center;
+  padding: 18px 16px;
+}
+
+.l-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.l-names {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.l-amp {
+  color: var(--gold);
+}
+
+.l-date {
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.l-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 14px;
+}
+
+.l-venue {
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  color: var(--ink-soft);
+}
+
+/* ─── Hint ─── */
+#hint {
+  margin-top: 24px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  animation: hint-pulse 2.5s ease-in-out infinite;
+  transition: opacity 0.4s ease;
+}
+
+#hint.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.85; }
+}
+
+/* ─── Full invitation ─── */
+#invitation {
+  position: fixed;
+  inset: 0;
+  background: url('sky-mobile.jpg') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity 0.9s ease;
+}
+
+.inv-building {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: bottom center;
+  pointer-events: none;
+}
+
+#invitation.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inv-card {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  width: 86%;
+  max-width: 340px;
+  padding: 48px 32px;
+  text-align: center;
+  border: 1px solid rgba(143, 164, 181, 0.30);
+  box-shadow: 0 8px 48px rgba(60, 80, 100, 0.13);
+  border-radius: 2px;
+  transform: translateY(20px);
+  transition: transform 0.9s ease;
+}
+
+#invitation.visible .inv-card {
+  transform: translateY(0);
+}
+
+.inv-card .l-names {
+  font-size: 26px;
+}
+
+.inv-card .l-eyebrow {
+  font-size: 10px;
+  margin-bottom: 14px;
+}
+
+.inv-card .l-date {
+  font-size: 11px;
+  margin-bottom: 18px;
+}
+
+.inv-card .l-rule {
+  width: 52px;
+  margin-bottom: 18px;
+}
+
+.inv-card .l-venue {
+  font-size: 11px;
+}
+
+/* ─── 481px ─── */
+@media (min-width: 481px) {
+  :root {
+    --env-w:   360px;
+    --env-h:   245px;
+    --letter-rise: -280px;
+  }
+
+  .l-names { font-size: 24px; }
+
+  .inv-card {
+    max-width: 400px;
+    padding: 52px 40px;
+  }
+
+  .inv-card .l-names { font-size: 30px; }
+}
+
+/* ─── 769px ─── */
+@media (min-width: 769px) {
+  :root {
+    --env-w:   460px;
+    --env-h:   312px;
+    --letter-rise: -355px;
+  }
+
+  .letter-body { padding: 26px 24px; }
+  .l-names { font-size: 28px; }
+  .l-eyebrow { font-size: 10px; }
+
+  .inv-card {
+    max-width: 480px;
+    padding: 60px 52px;
+  }
+
+  .inv-card .l-names { font-size: 36px; }
+  .inv-card .l-eyebrow { font-size: 11px; }
+  .inv-card .l-date { font-size: 12px; }
+  .inv-card .l-venue { font-size: 12px; }
+
+  #invitation {
+    background-image: url('sky.jpg');
+  }
+}

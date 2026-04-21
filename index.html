@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ka">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wedding Invitation</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Serif+Georgian:wght@300;400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="scene">
+            <div
+                id="envelope"
+                role="button"
+                tabindex="0"
+                aria-label="გახსენით კონვერტი"
+            >
+                <div class="env-flap"></div>
+                <div class="env-left"></div>
+                <div class="env-right"></div>
+                <div class="env-bottom"></div>
+                <img class="env-seal" src="seal.png" alt="">
+                <div id="letter">
+                    <div class="letter-body">
+                        <p class="l-eyebrow">გეპატიჟებით</p>
+                        <h1 class="l-names">
+                            თათო
+                            <span class="l-amp">&</span>
+                            ნიკუშა
+                        </h1>
+                        <p class="l-date">00 · 00 · 2026</p>
+                        <div class="l-rule"></div>
+                        <p class="l-venue">ხეივნის ჩრდილში · ხონი</p>
+                    </div>
+                </div>
+            </div>
+            <p id="hint" aria-hidden="true">გახსენით კონვერტი</p>
+        </div>
+        <div id="invitation" aria-hidden="true">
+            <img class="inv-building" src="building.png" alt="">
+            <div class="inv-card">
+                <p class="l-eyebrow">გეპატიჟებით</p>
+                <h1 class="l-names">
+                    თათო
+                    <span class="l-amp">&</span>
+                    ნიკუშა
+                </h1>
+                <p class="l-date">00 · 00 · 2026</p>
+                <div class="l-rule"></div>
+                <p class="l-venue">ადგილი · თბილისი</p>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
