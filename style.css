@@ -367,6 +367,7 @@ body {
 
 /* ─── Butterflies ─── */
 .butterfly {
+  display: block;
   position: absolute;
   width: 65px;
   height: 65px;
