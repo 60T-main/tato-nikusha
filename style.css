@@ -38,14 +38,6 @@ body {
   font-family: 'Noto Serif Georgian', 'Cormorant Garamond', serif;
 }
 
-body.scrollable {
-  /* sections become visible via their own body.scrollable rules */
-}
-
-#invitation.inv-settled {
-  /* no longer needed — invitation is always in flow */
-}
-
 /* ─── Scene ─── */
 #scene {
   position: fixed;
@@ -378,7 +370,6 @@ body.scrollable {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  z-index: 1;
   background: none;
   display: flex;
   align-items: center;
@@ -436,7 +427,6 @@ body.scrollable {
   bottom: -5%;
   left: -1%;
   width: 110%;
-
   display: block;
   object-fit: cover;
   object-position: bottom center;
