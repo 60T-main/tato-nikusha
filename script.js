@@ -70,16 +70,16 @@
       document.body.style.overflow = '';
       nightToggle.classList.remove('night-toggle--hidden');
 
-      // Step 5 — add scrollable first (sections enter the flow while invitation is still fixed)
-      // then on the next frame settle the invitation into the flow — prevents layout shift on mobile
+      // Add scrollable immediately — sections join the flow while invitation is still
+      // fading in (opacity near 0), so the reflow is invisible to the user.
+      // iOS Safari shifts fixed elements when page height changes; doing this
+      // before the invitation is opaque prevents any visible jump.
+      document.body.classList.add('scrollable');
+
+      // Step 5 — settle invitation into normal flow after fade-in completes (~950ms)
       setTimeout(function () {
-        document.body.classList.add('scrollable');
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            invite.classList.add('inv-settled');
-          });
-        });
-      }, 1000);
+        invite.classList.add('inv-settled');
+      }, 950);
     }, 4200);
   }
 
