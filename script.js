@@ -70,10 +70,15 @@
       document.body.style.overflow = '';
       nightToggle.classList.remove('night-toggle--hidden');
 
-      // Step 5 — transition invitation from fixed overlay to in-flow hero (after opacity fade-in)
+      // Step 5 — add scrollable first (sections enter the flow while invitation is still fixed)
+      // then on the next frame settle the invitation into the flow — prevents layout shift on mobile
       setTimeout(function () {
-        invite.classList.add('inv-settled');
         document.body.classList.add('scrollable');
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            invite.classList.add('inv-settled');
+          });
+        });
       }, 1000);
     }, 4200);
   }
