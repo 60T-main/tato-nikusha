@@ -7,6 +7,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Noto+Serif+Georgian:wght@300;400&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
+        <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
     </head>
     <body>
         <div id="scene">
@@ -39,6 +40,34 @@
                 </div>
             </div>
             <p id="hint" aria-hidden="true">გახსენით კონვერტი</p>
+            <dotlottie-player
+                id="butterfly-1"
+                src="butterfly 01.lottie"
+                autoplay
+                loop
+                class="butterfly butterfly--left"
+            ></dotlottie-player>
+            <dotlottie-player
+                id="butterfly-2"
+                src="butterfly 04.lottie"
+                autoplay
+                loop
+                class="butterfly butterfly--right"
+            ></dotlottie-player>
+            <dotlottie-player
+                id="butterfly-3"
+                src="butterfly 01.lottie"
+                autoplay
+                loop
+                class="butterfly butterfly--left2"
+            ></dotlottie-player>
+            <dotlottie-player
+                id="butterfly-4"
+                src="butterfly 04.lottie"
+                autoplay
+                loop
+                class="butterfly butterfly--right2"
+            ></dotlottie-player>
         </div>
         <button
             id="night-toggle"

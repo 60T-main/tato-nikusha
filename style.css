@@ -365,6 +365,80 @@ body {
   50%       { opacity: 0.85; }
 }
 
+/* ─── Butterflies ─── */
+.butterfly {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  pointer-events: none;
+  opacity: 0;
+  /* sit above the envelope opening */
+  bottom: calc(50% + 40px);
+  left: 50%;
+  z-index: 100;
+}
+
+.butterfly--left  { transform: translateX(-50%); }
+.butterfly--right { transform: translateX(-50%); }
+.butterfly--left2 { transform: translateX(-50%); }
+.butterfly--right2{ transform: translateX(-50%); }
+
+/* Left butterfly — steep left arc */
+@keyframes butterfly-fly-left {
+  0%   { opacity: 0;    transform: translate(-50%, 0)        rotate(0deg)   scale(0.6); }
+  10%  { opacity: 1;    transform: translate(-70px, -40px)   rotate(-20deg) scale(0.9); }
+  40%  { opacity: 1;    transform: translate(-160px, -140px) rotate(-35deg) scale(1);   }
+  65%  { opacity: 0.6;  transform: translate(-260px, -280px) rotate(-50deg) scale(1);   }
+  80%  { opacity: 0;    transform: translate(-360px, -400px) rotate(-60deg) scale(0.7); }
+  100% { opacity: 0;    transform: translate(-420px, -480px) rotate(-60deg) scale(0.7); }
+}
+
+/* Right butterfly — steep right arc */
+@keyframes butterfly-fly-right {
+  0%   { opacity: 0;    transform: translate(-50%, 0)       rotate(0deg)   scale(0.6); }
+  10%  { opacity: 1;    transform: translate(20px, -50px)   rotate(15deg)  scale(0.9); }
+  40%  { opacity: 1;    transform: translate(110px, -160px) rotate(30deg)  scale(1);   }
+  65%  { opacity: 0.6;  transform: translate(200px, -320px) rotate(45deg)  scale(1);   }
+  80%  { opacity: 0;    transform: translate(280px, -430px) rotate(55deg)  scale(0.7); }
+  100% { opacity: 0;    transform: translate(350px, -500px) rotate(55deg)  scale(0.7); }
+}
+
+/* Left2 — shallower leftward path */
+@keyframes butterfly-fly-left2 {
+  0%   { opacity: 0;    transform: translate(-50%, 0)        rotate(0deg)   scale(0.55); }
+  12%  { opacity: 1;    transform: translate(-30px, -60px)   rotate(-10deg) scale(0.85); }
+  40%  { opacity: 1;    transform: translate(-100px, -200px) rotate(-25deg) scale(1);    }
+  65%  { opacity: 0.6;  transform: translate(-180px, -360px) rotate(-40deg) scale(1);    }
+  80%  { opacity: 0;    transform: translate(-240px, -460px) rotate(-50deg) scale(0.7);  }
+  100% { opacity: 0;    transform: translate(-300px, -540px) rotate(-50deg) scale(0.7);  }
+}
+
+/* Right2 — shallower rightward path */
+@keyframes butterfly-fly-right2 {
+  0%   { opacity: 0;    transform: translate(-50%, 0)       rotate(0deg)   scale(0.55); }
+  12%  { opacity: 1;    transform: translate(60px, -45px)   rotate(10deg)  scale(0.85); }
+  40%  { opacity: 1;    transform: translate(150px, -180px) rotate(22deg)  scale(1);    }
+  65%  { opacity: 0.6;  transform: translate(240px, -340px) rotate(35deg)  scale(1);    }
+  80%  { opacity: 0;    transform: translate(320px, -440px) rotate(48deg)  scale(0.7);  }
+  100% { opacity: 0;    transform: translate(390px, -520px) rotate(48deg)  scale(0.7);  }
+}
+
+.butterfly--left.flying {
+  animation: butterfly-fly-left 4.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.butterfly--right.flying {
+  animation: butterfly-fly-right 4.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+}
+
+.butterfly--left2.flying {
+  animation: butterfly-fly-left2 5.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+}
+
+.butterfly--right2.flying {
+  animation: butterfly-fly-right2 5.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s forwards;
+}
+
 /* ─── Full invitation ─── */
 #invitation {
   position: relative;

@@ -44,11 +44,15 @@
       flap.classList.add('behind');
     }, 950);
 
-    // Step 2 — overflow visible + letter + flowers rise (1300ms)
+    // Step 2 — overflow visible + letter + flowers + butterflies rise (1300ms)
     setTimeout(function () {
       envelope.classList.add('open-overflow');
       envelope.classList.add('flowers-out');
       letter.classList.add('rising');
+      document.getElementById('butterfly-1').classList.add('flying');
+      document.getElementById('butterfly-2').classList.add('flying');
+      document.getElementById('butterfly-3').classList.add('flying');
+      document.getElementById('butterfly-4').classList.add('flying');
     }, 1300);
 
     // Step 3 — fade out envelope + scene + flowers + hint (3200ms)
