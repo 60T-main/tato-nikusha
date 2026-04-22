@@ -35,28 +35,26 @@ html {
 body {
   min-height: 100vh;
   background: url('bg-clear.jpg') center center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: 'Noto Serif Georgian', 'Cormorant Garamond', serif;
 }
 
 body.scrollable {
-  display: block;
+  /* sections become visible via their own body.scrollable rules */
 }
 
 #invitation.inv-settled {
-  position: relative;
-  min-height: 100vh;
+  /* no longer needed — invitation is always in flow */
 }
 
 /* ─── Scene ─── */
 #scene {
-  position: relative;
-  z-index: 2;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   animation: scene-enter 0.9s ease both;
   animation-delay: 0.2s;
   transition: opacity 1.2s ease;
@@ -377,18 +375,19 @@ body.scrollable {
 
 /* ─── Full invitation ─── */
 #invitation {
-  position: fixed;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1;
   background: none;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  z-index: 50;
   transition: opacity 0.9s ease;
-overflow-x: clip;
-    overflow-y: visible;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .inv-sky-day {

@@ -60,16 +60,11 @@
       hint.classList.add('hidden');
     }, 3200);
 
-    // Step 4 — settle layout first while invitation is still opacity:0, then fade it in
+    // Step 4 — show invitation and reveal sections (4200ms)
+    // #invitation is already position:relative in the flow (opacity:0), so there
+    // is no position change here — zero layout shift possible on any browser.
     setTimeout(function () {
-      // Settle invitation into flow + show sections — all invisible at this point
-      invite.classList.add('inv-settled');
       document.body.classList.add('scrollable');
-
-      // Force a synchronous layout recalc so browser commits the reflow before painting
-      void invite.offsetHeight;
-
-      // Now reveal: invitation fades in on an already-stable layout — no shift possible
       invite.removeAttribute('aria-hidden');
       invite.classList.add('visible');
       scene.style.display = 'none';
