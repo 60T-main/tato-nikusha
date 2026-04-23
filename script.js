@@ -99,8 +99,45 @@
     });
   }, { threshold: 0.18 });
 
-  document.querySelectorAll('.msg-inner, .cd-inner, .rsvp-inner').forEach(function (el) {
+  document.querySelectorAll('.msg-inner, .cd-inner, .rsvp-inner, .tt-inner').forEach(function (el) {
     revealObserver.observe(el);
+  });
+
+  // Timetable modal
+  var ttModal      = document.getElementById('tt-modal');
+  var ttModalIcon  = ttModal.querySelector('.tt-modal__icon');
+  var ttModalTime  = ttModal.querySelector('.tt-modal__time');
+  var ttModalTitle = ttModal.querySelector('.tt-modal__title');
+  var ttModalDesc  = ttModal.querySelector('.tt-modal__desc');
+  var ttModalClose = ttModal.querySelector('.tt-modal__close');
+  var ttOverlay    = ttModal.querySelector('.tt-modal__overlay');
+
+  function openTtModal(item) {
+    ttModalIcon.textContent  = item.dataset.icon  || '';
+    ttModalTime.textContent  = item.dataset.time  || '';
+    ttModalTitle.textContent = item.dataset.title || '';
+    ttModalDesc.textContent  = item.dataset.desc  || '';
+    ttModal.classList.add('open');
+    ttModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTtModal() {
+    ttModal.classList.remove('open');
+    ttModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.tt-item').forEach(function (item) {
+    item.addEventListener('click', function () {
+      openTtModal(item);
+    });
+  });
+
+  ttModalClose.addEventListener('click', closeTtModal);
+  ttOverlay.addEventListener('click', closeTtModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeTtModal();
   });
 
   // Countdown — set your wedding date here

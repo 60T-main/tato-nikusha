@@ -33,8 +33,7 @@ html {
 
 /* ─── Body ─── */
 body {
-  min-height: 100vh;
-  background: url('bg-clear.jpg') center center / cover no-repeat;
+
   font-family: 'Noto Serif Georgian', 'Cormorant Garamond', serif;
 }
 
@@ -454,6 +453,7 @@ body {
   transition: opacity 0.9s ease;
   overflow-x: clip;
   overflow-y: visible;
+  z-index: 10;
 }
 
 .inv-sky-day {
@@ -494,7 +494,12 @@ body {
   object-position: bottom center;
   pointer-events: none;
   z-index: 5;
-  transition: opacity 1.5s ease;
+  opacity: 0;
+  transition: opacity 1s ease 0.4s;
+}
+
+#invitation.visible .inv-building {
+  opacity: 1;
 }
 
 .inv-building-night {
@@ -508,7 +513,7 @@ body {
   pointer-events: none;
   z-index: 6;
   opacity: 0;
-  transition: opacity 1.5s ease;
+  transition: opacity 1s ease 0.4s;
 }
 
 #invitation.visible {
@@ -522,7 +527,7 @@ body {
   background: var(--paper);
   width: 86%;
   max-width: 340px;
-  padding: 48px 32px;
+  padding: 28px 22px;
   text-align: center;
   border: 1px solid rgba(143, 164, 181, 0.30);
   box-shadow: 0 8px 48px rgba(60, 80, 100, 0.13);
@@ -597,7 +602,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: url('bg-clear-night.jpg') center center / cover no-repeat;
+
   opacity: 0;
   transition: opacity 1.5s ease;
   z-index: 0;
@@ -652,8 +657,7 @@ body.night #invitation.visible .inv-clouds {
 }
 
 /* Night building */
-
-body.night .inv-building-night {
+body.night #invitation.visible .inv-building-night {
   opacity: 1;
 }
 
@@ -976,7 +980,10 @@ body.night .cd-label { color: #7a9db8; }
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  padding: 80px 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 80px ;
+  padding-bottom: 20px;
   background-color: #dce8f0;
   transition: background-color 1.5s ease;
 }
@@ -989,6 +996,276 @@ body.night #rsvp {
   background-color: #1a2c3d;
 }
 
+/* ─── Timetable section ─── */
+#timetable {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 22px;
+  padding-bottom: 62px;
+  background-color: #dce8f0;
+  background-image: none;
+  transition: background-color 1.5s ease;
+}
+
+body.scrollable #timetable {
+  display: flex;
+}
+
+body.night #timetable {
+  background-color: #1a2c3d;
+}
+
+.tt-inner {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.tt-inner.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tt-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  transition: color 1.5s ease;
+}
+
+body.night .tt-eyebrow { color: #7a9db8; }
+
+.tt-title {
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+  transition: color 1.5s ease;
+}
+
+body.night .tt-title { color: #c8dae8; }
+
+.tt-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.tt-divider__line {
+  display: block;
+  flex: 1;
+  height: 1px;
+  background-color: rgba(201, 168, 76, 0.35);
+  transition: background-color 1.5s ease;
+}
+
+.tt-divider__diamond {
+  display: block;
+  width: 5px;
+  height: 5px;
+  background-color: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  transition: background-color 1.5s ease;
+}
+
+.tt-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.tt-item {
+  display: grid;
+  grid-template-columns: 52px 24px 1fr 22px;
+  align-items: center;
+  gap: 0 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(143, 164, 181, 0.18);
+  transition: border-color 1.5s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.tt-item:last-child {
+  border-bottom: none;
+}
+
+body.night .tt-item {
+  border-bottom-color: rgba(100, 150, 185, 0.18);
+}
+
+.tt-time {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  text-align: right;
+  transition: color 1.5s ease;
+}
+
+.tt-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--gold);
+  margin: 0 auto;
+  flex-shrink: 0;
+  transition: background-color 1.5s ease;
+}
+
+.tt-label {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  text-align: left;
+  transition: color 1.5s ease;
+}
+
+body.night .tt-label { color: #c8dae8; }
+
+.tt-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 0;
+  pointer-events: none;
+}
+
+.tt-item:hover .tt-info {
+  background-color: var(--gold);
+  color: #fff;
+}
+
+body.night .tt-info {
+  border-color: #c9a84c;
+  color: #c9a84c;
+}
+
+/* ── Timetable modal ── */
+#tt-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+
+#tt-modal.open {
+  display: flex;
+}
+
+.tt-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(20, 30, 40, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: tt-overlay-in 0.25s ease forwards;
+}
+
+@keyframes tt-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.tt-modal__card {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 48px);
+  max-width: 340px;
+  background-color: #faf8f5;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 18px;
+  padding: 36px 28px 32px;
+  text-align: center;
+  animation: tt-card-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+body.night .tt-modal__card {
+  background-color: #1c2b3a;
+  border-color: rgba(100, 150, 185, 0.3);
+}
+
+@keyframes tt-card-in {
+  from { opacity: 0; transform: scale(0.88) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.tt-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: color 0.2s ease;
+}
+
+.tt-modal__close:hover { color: var(--ink); }
+body.night .tt-modal__close { color: #7a9db8; }
+body.night .tt-modal__close:hover { color: #c8dae8; }
+
+.tt-modal__icon {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.tt-modal__time {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.tt-modal__title {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin-bottom: 14px;
+  transition: color 1.5s ease;
+}
+
+body.night .tt-modal__title { color: #c8dae8; }
+
+.tt-modal__desc {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+  transition: color 1.5s ease;
+}
+
+body.night .tt-modal__desc { color: #7a9db8; }
+
 /* ─── Venue map section ─── */
 #venue-map {
   display: none;
@@ -996,6 +1273,7 @@ body.night #rsvp {
   justify-content: center;
   padding: 30px 24px;
   background-color: #dce8f0;
+  background-image: none;
   transition: background-color 1.5s ease;
 }
 
@@ -1011,6 +1289,7 @@ body.night #venue-map {
   width: 100%;
   max-width: 520px;
   text-align: center;
+  z-index: 10;
 }
 
 .map-eyebrow {
@@ -1295,8 +1574,62 @@ body.night .rsvp-success { color: #7a9db8; }
   .cd-unit { min-width: 64px; }
 }
 
+/* ─── Desktop notice ─── */
+#desktop-notice {
+  display: none;
+}
+
 /* ─── 769px ─── */
 @media (min-width: 769px) {
+  #desktop-notice {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    background: #f0eae0;
+  }
+
+  .dn-card {
+    text-align: center;
+    padding: 48px 40px;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+  }
+
+  .dn-icon {
+    font-size: 48px;
+    margin: 0 0 16px;
+    line-height: 1;
+  }
+
+  .dn-logo {
+    display: block;
+    width: 140px;
+    margin: 0 auto 28px;
+    opacity: 0.85;
+  }
+
+  .dn-title {
+    font-family: 'Noto Serif Georgian', serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #3a4f5c;
+    margin: 0 0 12px;
+  }
+
+  .dn-body {
+    font-family: 'Noto Serif Georgian', serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #6b8498;
+    line-height: 1.7;
+    margin: 0;
+  }
+
   :root {
     --env-w:   460px;
     --env-h:   312px;

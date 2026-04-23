@@ -10,6 +10,13 @@
         <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
     </head>
     <body>
+        <div id="desktop-notice" aria-hidden="true">
+            <div class="dn-card">
+                <img src="logo-weddsite.png" alt="Weddsite" class="dn-logo">
+                <p class="dn-title">გახსენით მობილურზე</p>
+                <p class="dn-body">მოსაწვევი შექმნილია მობილური მოწყობილობისთვის. გთხოვთ, გახსნათ სმარტფონზე.</p>
+            </div>
+        </div>
         <div id="scene">
             <div
                 id="envelope"
@@ -194,6 +201,67 @@
                 <p class="rsvp-success" id="rsvp-success">გმადლობთ! თქვენი პასუხი მიღებულია.</p>
             </div>
         </section>
+        <section id="timetable">
+            <div class="tt-inner">
+                <p class="tt-eyebrow">განრიგი</p>
+                <h2 class="tt-title">საღამოს განრიგი</h2>
+                <div class="tt-divider">
+                    <span class="tt-divider__line"></span>
+                    <span class="tt-divider__diamond"></span>
+                    <span class="tt-divider__line"></span>
+                </div>
+                <ol class="tt-list">
+                    <li
+                        class="tt-item"
+                        data-icon="🌸"
+                        data-time="18:00"
+                        data-title="სტუმრების მიღება"
+                        data-desc="სტუმრები ესალმებიან ერთმანეთს."
+                    >
+                        <span class="tt-time">18:00</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">სტუმრების მიღება</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                    <li
+                        class="tt-item"
+                        data-icon="💍"
+                        data-time="19:00"
+                        data-title="საქორწინო ცერემონია"
+                        data-desc="მეფე-პატარძალი სიყვარულისა და ერთგულების ფიცს დებს."
+                    >
+                        <span class="tt-time">19:00</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">საქორწინო ცერემონია</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                    <li
+                        class="tt-item"
+                        data-icon="🥂"
+                        data-time="20:00"
+                        data-title="სადღეგრძელო სუფრა"
+                        data-desc="სუფრა სავსე კულინარიული სიამოვნებებით - ქართული სამზარეულო და ღვინო."
+                    >
+                        <span class="tt-time">20:00</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">სადღეგრძელო სუფრა</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                    <li
+                        class="tt-item"
+                        data-icon="🎶"
+                        data-time="22:00"
+                        data-title="ცეკვა და მუსიკა"
+                        data-desc="მუსიკა და ცეკვა! ზეიმი მხიარულად გაგრძელდება!"
+                    >
+                        <span class="tt-time">22:00</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">ცეკვა და მუსიკა</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                </ol>
+            </div>
+        </section>
         <section id="venue-map">
             <div class="map-inner">
                 <p class="map-eyebrow">ლოკაცია</p>
@@ -218,6 +286,22 @@
                 </div>
             </div>
         </section>
+        <!-- Timetable modal -->
+        <div
+            id="tt-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-hidden="true"
+        >
+            <div class="tt-modal__overlay"></div>
+            <div class="tt-modal__card">
+                <button class="tt-modal__close" aria-label="დახურვა">&times;</button>
+                <p class="tt-modal__icon"></p>
+                <p class="tt-modal__time"></p>
+                <p class="tt-modal__title"></p>
+                <p class="tt-modal__desc"></p>
+            </div>
+        </div>
         <script src="script.js"></script>
     </body>
 </html>
