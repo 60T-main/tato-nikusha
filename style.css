@@ -33,7 +33,7 @@ html {
 
 /* ─── Body ─── */
 body {
-
+  background: url('bg-clear.jpg') center center / cover no-repeat;
   font-family: 'Noto Serif Georgian', 'Cormorant Garamond', serif;
 }
 
@@ -602,7 +602,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-
+  background: url('bg-clear-night.jpg') center center / cover no-repeat;
   opacity: 0;
   transition: opacity 1.5s ease;
   z-index: 0;
@@ -759,7 +759,8 @@ body.night .inv-card {
   display: none;
   flex-direction: column;
 
-
+  overflow-x: clip;
+  overflow-y: visible;
   gap: 3rem;
   position: relative;
   min-height: 80vh;
@@ -828,7 +829,7 @@ body.night .msg-inner {
 }
 
 .msg-eyebrow {
-  font-size: 9px;
+  font-size: 1rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-soft);
@@ -1008,6 +1009,31 @@ body.night #rsvp {
   background-color: #dce8f0;
   background-image: none;
   transition: background-color 1.5s ease;
+}
+
+.house-wrap {
+  position: relative;
+  width: 130%;
+  z-index: 10;
+}
+
+.house-img {
+  width: 100%;
+  display: block;
+}
+
+.house-img-night {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+body.night .house-img-night {
+  opacity: 1;
 }
 
 body.scrollable #timetable {
@@ -1545,6 +1571,52 @@ body.night .rsvp-submit:hover {
 }
 
 body.night .rsvp-success { color: #7a9db8; }
+
+/* ─── Footer ─── */
+#site-footer {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  background-color: #3a4f5c;
+  transition: background-color 1.5s ease;
+}
+
+body.scrollable #site-footer {
+  display: flex;
+}
+
+body.night #site-footer {
+  background-color: #0f1b28;
+}
+
+.footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  opacity: 0.32;
+  transition: opacity 0.4s ease;
+}
+
+.footer-credit:hover {
+  opacity: 0.85;
+}
+
+.footer-logo {
+  width: 28px;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.footer-text {
+  font-family: 'Noto Serif Georgian', 'Cormorant Garamond', serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  color: #f0ede8;
+  white-space: nowrap;
+}
 
 /* ─── 481px ─── */
 @media (min-width: 481px) {
