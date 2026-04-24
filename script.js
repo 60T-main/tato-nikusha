@@ -9,7 +9,65 @@
   var scene         = document.getElementById('scene');
   var bottomFlowers = document.getElementById('bottom-flowers');
   var topFlowers    = document.getElementById('top-flowers');
-    var opened = false;
+  var opened        = false;
+
+  // ── Music ──
+  var bgAudio      = document.getElementById('bg-audio');
+  var musicToggle  = document.getElementById('music-toggle');
+
+  bgAudio.volume = 0;
+
+  function fadeUpAudio(duration) {
+    var target   = 0.1;
+    var steps    = 30;
+    var interval = duration / steps;
+    var step     = target / steps;
+    var timer = setInterval(function () {
+      bgAudio.volume = Math.min(bgAudio.volume + step, target);
+      if (bgAudio.volume >= target) clearInterval(timer);
+    }, interval);
+  }
+
+  function fadeOutAudio(duration, cb) {
+    var steps    = 30;
+    var interval = duration / steps;
+    var step     = bgAudio.volume / steps;
+    var timer = setInterval(function () {
+      bgAudio.volume = Math.max(bgAudio.volume - step, 0);
+      if (bgAudio.volume <= 0.001) {
+        bgAudio.volume = 0;
+        clearInterval(timer);
+        bgAudio.pause();
+        if (cb) cb();
+      }
+    }, interval);
+  }
+
+  musicToggle.addEventListener('click', function () {
+    if (musicToggle.classList.contains('playing')) {
+      // Pause
+      musicToggle.classList.remove('playing');
+      musicToggle.setAttribute('aria-pressed', 'false');
+      fadeOutAudio(600);
+    } else {
+      // Play — call play() synchronously (gesture context)
+      musicToggle.classList.add('playing');
+      musicToggle.setAttribute('aria-pressed', 'true');
+      bgAudio.play().catch(function () {});
+      fadeUpAudio(800);
+    }
+  });
+
+  // Pause when tab hidden, resume if still playing
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (!bgAudio.paused) bgAudio.pause();
+    } else {
+      if (musicToggle.classList.contains('playing')) {
+        bgAudio.play().catch(function () {});
+      }
+    }
+  });
     
 
   // ── Night mode ──
@@ -33,8 +91,10 @@
     if (opened) return;
     opened = true;
 
-    // Hide the hint
-    // (fades with envelope at step 3)
+    // Start audio at volume 0 synchronously (preserves gesture context for iOS)
+    bgAudio.play().catch(function () {});
+    musicToggle.classList.add('playing');
+    musicToggle.setAttribute('aria-pressed', 'true');
 
     // Step 1 — open flap (0ms)
     flap.classList.add('open');
@@ -76,6 +136,8 @@
       topFlowers.style.display = 'none';
       document.body.style.overflow = '';
       nightToggle.classList.remove('night-toggle--hidden');
+      musicToggle.classList.remove('music-toggle--hidden');
+      fadeUpAudio(1200);
     }, 4200);
   }
 
