@@ -1068,7 +1068,7 @@ body.night .cd-label { color: #7a9db8; }
   justify-content: center;
   padding-left: 24px;
   padding-right: 24px;
-  padding-top: 80px ;
+  padding-top: 2rem ;
   padding-bottom: 20px;
   background-color: #dce8f0;
   transition: background-color 1.5s ease;
@@ -1089,7 +1089,7 @@ body.night #rsvp {
   justify-content: center;
   padding-left: 24px;
   padding-right: 24px;
-  padding-top: 22px;
+  padding-top: 12rem;
   padding-bottom: 62px;
   background-color: #dce8f0;
   background-image: none;
@@ -1635,6 +1635,11 @@ body.night .radio-card input:checked + .radio-face {
   background-color: var(--ink-soft);
 }
 
+.rsvp-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 body.night .rsvp-submit {
   background-color: #3a5a7a;
   color: #c8dae8;
@@ -1657,6 +1662,37 @@ body.night .rsvp-submit:hover {
 }
 
 body.night .rsvp-success { color: #7a9db8; }
+
+.rsvp-status {
+  min-height: 1.4em;
+  margin-top: 12px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+body.night .rsvp-status {
+  color: #7a9db8;
+}
+
+.rsvp-status.error {
+  color: #a14d4d;
+}
+
+body.night .rsvp-status.error {
+  color: #e19a9a;
+}
+
+.rsvp-closed-note {
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+body.night .rsvp-closed-note {
+  color: #7a9db8;
+}
 
 /* ─── Footer ─── */
 #site-footer {

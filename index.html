@@ -179,7 +179,7 @@
                 </h1>
                 <p class="l-date">20 · 06 · 2026</p>
                 <div class="l-rule"></div>
-                <p class="l-venue">რესტოეანი ხეივნის ჩრდილში</p>
+                <p class="l-venue">რესტორანი ხეივნის ჩრდილში</p>
                 <a href="#rsvp" class="inv-cta">დაადასტურეთ დასწრება</a>
             </div>
         </div>
@@ -227,10 +227,72 @@
                 <img id="bottom-flowers2" src="./bottom-flowers2.png" alt="">
             </div>
         </section>
+        <section id="timetable">
+            <div class="tt-inner">
+                <p class="tt-eyebrow">განრიგი</p>
+                <h2 class="tt-title">საღამოს განრიგი</h2>
+                <div class="tt-divider">
+                    <span class="tt-divider__line"></span>
+                    <span class="tt-divider__diamond"></span>
+                    <span class="tt-divider__line"></span>
+                </div>
+                <ol class="tt-list">
+                    <li
+                        class="tt-item"
+                        data-icon="🌸"
+                        data-time="19:00"
+                        data-title="სტუმრების მიღება"
+                        data-desc=""
+                    >
+                        <span class="tt-time">19:00</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">სტუმრების მიღება</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                    <li
+                        class="tt-item"
+                        data-icon="💍"
+                        data-time="19:30"
+                        data-title="საქორწინო ცერემონია"
+                        data-desc="მეფე-პატარძალი სიყვარულისა და ერთგულების ფიცს დებს."
+                    >
+                        <span class="tt-time">19:30</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">საქორწინო ცერემონია</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                    <li
+                        class="tt-item"
+                        data-icon="🥂"
+                        data-time="20:00"
+                        data-title="ვახშამი"
+                        data-desc="სუფრა სავსე კულინარიული სიამოვნებებით - მეგრული სამზარეულო და ღვინო."
+                    >
+                        <span class="tt-time">20:00</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">ვახშამი</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                    <li
+                        class="tt-item"
+                        data-icon="🍰"
+                        data-time="21:50"
+                        data-title="ტორტის გაჭრა"
+                        data-desc="ზეიმი გაგრძელდება!"
+                    >
+                        <span class="tt-time">21:50</span>
+                        <span class="tt-dot"></span>
+                        <span class="tt-label">ტორტის გაჭრა</span>
+                        <button class="tt-info" aria-label="დეტალები">+</button>
+                    </li>
+                </ol>
+            </div>
+        </section>
         <section id="rsvp">
             <div class="rsvp-inner">
                 <p class="rsvp-eyebrow">დადასტურება</p>
                 <h2 class="rsvp-title">მოხვალთ?</h2>
+                <p class="rsvp-eyebrow" style="font-size: 0.65rem;">გთხოვთ დაადასტუროთ <strong>18 ივნისამდე</strong></p>
                 <div class="msg-rule"></div>
                 <form id="rsvp-form" novalidate>
                     <div class="rsvp-field">
@@ -263,74 +325,14 @@
                             id="rsvp-guests"
                             type="number"
                             min="1"
-                            max="10"
+                            max="100"
                             value="1"
                         >
                     </div>
                     <button class="rsvp-submit" type="submit">გაგზავნა</button>
                 </form>
+                <p class="rsvp-status" id="rsvp-status" aria-live="polite"></p>
                 <p class="rsvp-success" id="rsvp-success">გმადლობთ! თქვენი პასუხი მიღებულია.</p>
-            </div>
-        </section>
-        <section id="timetable">
-            <div class="tt-inner">
-                <p class="tt-eyebrow">განრიგი</p>
-                <h2 class="tt-title">საღამოს განრიგი</h2>
-                <div class="tt-divider">
-                    <span class="tt-divider__line"></span>
-                    <span class="tt-divider__diamond"></span>
-                    <span class="tt-divider__line"></span>
-                </div>
-                <ol class="tt-list">
-                    <li
-                        class="tt-item"
-                        data-icon="🌸"
-                        data-time="18:00"
-                        data-title="სტუმრების მიღება"
-                        data-desc="სტუმრები ესალმებიან ერთმანეთს."
-                    >
-                        <span class="tt-time">18:00</span>
-                        <span class="tt-dot"></span>
-                        <span class="tt-label">სტუმრების მიღება</span>
-                        <button class="tt-info" aria-label="დეტალები">+</button>
-                    </li>
-                    <li
-                        class="tt-item"
-                        data-icon="💍"
-                        data-time="19:00"
-                        data-title="საქორწინო ცერემონია"
-                        data-desc="მეფე-პატარძალი სიყვარულისა და ერთგულების ფიცს დებს."
-                    >
-                        <span class="tt-time">19:00</span>
-                        <span class="tt-dot"></span>
-                        <span class="tt-label">საქორწინო ცერემონია</span>
-                        <button class="tt-info" aria-label="დეტალები">+</button>
-                    </li>
-                    <li
-                        class="tt-item"
-                        data-icon="🥂"
-                        data-time="20:00"
-                        data-title="სადღეგრძელო სუფრა"
-                        data-desc="სუფრა სავსე კულინარიული სიამოვნებებით - ქართული სამზარეულო და ღვინო."
-                    >
-                        <span class="tt-time">20:00</span>
-                        <span class="tt-dot"></span>
-                        <span class="tt-label">სადღეგრძელო სუფრა</span>
-                        <button class="tt-info" aria-label="დეტალები">+</button>
-                    </li>
-                    <li
-                        class="tt-item"
-                        data-icon="🎶"
-                        data-time="22:00"
-                        data-title="ცეკვა და მუსიკა"
-                        data-desc="მუსიკა და ცეკვა! ზეიმი მხიარულად გაგრძელდება!"
-                    >
-                        <span class="tt-time">22:00</span>
-                        <span class="tt-dot"></span>
-                        <span class="tt-label">ცეკვა და მუსიკა</span>
-                        <button class="tt-info" aria-label="დეტალები">+</button>
-                    </li>
-                </ol>
             </div>
         </section>
         <section id="venue-map">

@@ -202,8 +202,12 @@
     if (e.key === 'Escape') closeTtModal();
   });
 
-  // Countdown — set your wedding date here
-  var weddingDate = new Date('2026-09-01T18:00:00');
+  // Backend RSVP config
+  var API_URL = 'https://weddsites-backend.vercel.app/api/rsvp';
+  var PROJECT_ID = 'tato-nikusha-2026';
+
+  // Wedding datetime (Georgia time, UTC+4)
+  var weddingDate = new Date('2026-06-20T19:30:00+04:00');
 
   function updateCountdown() {
     var now = new Date();
@@ -246,11 +250,131 @@
   // RSVP — form submit (showcase only)
   var rsvpForm = document.getElementById('rsvp-form');
   var rsvpSuccess = document.getElementById('rsvp-success');
+  var rsvpStatus = document.getElementById('rsvp-status');
+  var rsvpSubmitBtn = rsvpForm.querySelector('.rsvp-submit');
+
+  function isRsvpClosed() {
+    return new Date() >= weddingDate;
+  }
+
+  function setRsvpClosedState() {
+    var inputs = rsvpForm.querySelectorAll('input, button');
+    inputs.forEach(function (el) {
+      el.disabled = true;
+    });
+
+    rsvpStatus.classList.remove('error');
+    rsvpStatus.textContent = '';
+
+    if (!rsvpForm.querySelector('.rsvp-closed-note')) {
+      var closedNote = document.createElement('p');
+      closedNote.className = 'rsvp-closed-note';
+      closedNote.textContent = 'RSVP დასრულებულია, რადგან ქორწილის თარიღი უკვე დადგა.';
+      rsvpForm.appendChild(closedNote);
+    }
+  }
+
+  function getFormData() {
+    var fullName = document.getElementById('rsvp-name').value.trim();
+    var attendanceInput = document.querySelector('input[name="attendance"]:checked');
+    var attendance = attendanceInput ? attendanceInput.value : '';
+    var guestCountRaw = document.getElementById('rsvp-guests').value;
+
+    return {
+      fullName: fullName,
+      attendance: attendance,
+      guestCountRaw: guestCountRaw
+    };
+  }
+
+  function validateRsvpPayload(formData) {
+    if (!formData.fullName) {
+      return 'გთხოვთ შეიყვანოთ სახელი და გვარი.';
+    }
+    if (!formData.attendance) {
+      return 'გთხოვთ აირჩიოთ დაესწრებით თუ არა.';
+    }
+    if (formData.attendance === 'yes') {
+      var parsedGuests = Number(formData.guestCountRaw);
+      if (!Number.isFinite(parsedGuests) || parsedGuests < 1) {
+        return 'გთხოვთ მიუთითოთ სტუმრების სწორი რაოდენობა.';
+      }
+    }
+    return '';
+  }
+
+  async function submitRsvp(payload) {
+    var response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    var result = await response.json().catch(function () {
+      return { error: 'Invalid server response' };
+    });
+
+    if (!response.ok) {
+      throw new Error(result.error || 'RSVP submit failed');
+    }
+
+    return result;
+  }
+
+  if (isRsvpClosed()) {
+    setRsvpClosedState();
+  }
 
   rsvpForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    rsvpForm.style.display = 'none';
-    rsvpSuccess.classList.add('visible');
+
+    if (isRsvpClosed()) {
+      setRsvpClosedState();
+      return;
+    }
+
+    var formData = getFormData();
+    var validationError = validateRsvpPayload(formData);
+
+    rsvpStatus.classList.remove('error');
+    rsvpStatus.textContent = '';
+
+    if (validationError) {
+      rsvpStatus.classList.add('error');
+      rsvpStatus.textContent = validationError;
+      return;
+    }
+
+    var requestBody = {
+      projectId: PROJECT_ID,
+      name: formData.fullName,
+      surname: '',
+      attendance: formData.attendance
+    };
+
+    if (formData.attendance === 'yes') {
+      requestBody.guestCount = Number(formData.guestCountRaw);
+    }
+
+    rsvpSubmitBtn.disabled = true;
+    rsvpStatus.textContent = 'იგზავნება...';
+
+    submitRsvp(requestBody)
+      .then(function () {
+        rsvpStatus.textContent = '';
+        rsvpForm.style.display = 'none';
+        rsvpSuccess.classList.add('visible');
+      })
+      .catch(function (err) {
+        rsvpStatus.classList.add('error');
+        rsvpStatus.textContent = 'დაფიქსირდა შეცდომა. გთხოვთ სცადოთ თავიდან.';
+        console.error(err);
+      })
+      .finally(function () {
+        if (!isRsvpClosed()) {
+          rsvpSubmitBtn.disabled = false;
+        }
+      });
   });
 
   // Smooth scroll for inv-cta
