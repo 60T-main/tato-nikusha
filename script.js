@@ -233,21 +233,7 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // RSVP — attendance radio toggles guest count field
-  var attendanceInputs = document.querySelectorAll('input[name="attendance"]');
-  var guestCountField = document.getElementById('guest-count-field');
-
-  attendanceInputs.forEach(function (radio) {
-    radio.addEventListener('change', function () {
-      if (radio.value === 'yes') {
-        guestCountField.classList.add('visible');
-      } else {
-        guestCountField.classList.remove('visible');
-      }
-    });
-  });
-
-  // RSVP — form submit (showcase only)
+  // RSVP — form submit
   var rsvpForm = document.getElementById('rsvp-form');
   var rsvpSuccess = document.getElementById('rsvp-success');
   var rsvpStatus = document.getElementById('rsvp-status');
@@ -278,12 +264,10 @@
     var fullName = document.getElementById('rsvp-name').value.trim();
     var attendanceInput = document.querySelector('input[name="attendance"]:checked');
     var attendance = attendanceInput ? attendanceInput.value : '';
-    var guestCountRaw = document.getElementById('rsvp-guests').value;
 
     return {
       fullName: fullName,
-      attendance: attendance,
-      guestCountRaw: guestCountRaw
+      attendance: attendance
     };
   }
 
@@ -293,12 +277,6 @@
     }
     if (!formData.attendance) {
       return 'გთხოვთ აირჩიოთ დაესწრებით თუ არა.';
-    }
-    if (formData.attendance === 'yes') {
-      var parsedGuests = Number(formData.guestCountRaw);
-      if (!Number.isFinite(parsedGuests) || parsedGuests < 1) {
-        return 'გთხოვთ მიუთითოთ სტუმრების სწორი რაოდენობა.';
-      }
     }
     return '';
   }
@@ -351,10 +329,6 @@
       surname: '',
       attendance: formData.attendance
     };
-
-    if (formData.attendance === 'yes') {
-      requestBody.guestCount = Number(formData.guestCountRaw);
-    }
 
     rsvpSubmitBtn.disabled = true;
     rsvpStatus.textContent = 'იგზავნება...';

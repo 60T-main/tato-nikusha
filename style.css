@@ -1560,10 +1560,6 @@ body.night .rsvp-input {
   color: #c8dae8;
 }
 
-.rsvp-input--narrow {
-  max-width: 96px;
-}
-
 .rsvp-radio-group {
   display: flex;
   gap: 12px;
@@ -1605,14 +1601,6 @@ body.night .radio-card input:checked + .radio-face {
   background-color: var(--gold);
   color: #1c2b3a;
   border-color: var(--gold);
-}
-
-#guest-count-field {
-  display: none;
-}
-
-#guest-count-field.visible {
-  display: block;
 }
 
 .rsvp-submit {
