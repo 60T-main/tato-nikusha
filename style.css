@@ -1512,7 +1512,7 @@ body.night .rsvp-inner {
 body.night .rsvp-eyebrow { color: #7a9db8; }
 
 .rsvp-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 400;
   color: var(--ink);
   letter-spacing: 0.03em;
